@@ -7,7 +7,7 @@ function History() {
 
     //get the history of the database
     const act = async() => {
-        const {data} = await axios.get('http://localhost:3001/getHist')
+        const {data} = await axios.get('http://localhost:3001/times')
         setArr(data)
     }
 
@@ -18,10 +18,12 @@ function History() {
    
   return (
     <div className="Hist">
-        <button onClick={() => {act()}}>(F5)</button>
+        <button onClick={() => {act()}}>Upgrade History</button>
         {
             arr ? arr.forEach(h => {
-                
+                <div>
+                  
+                </div>  
             }) : ''
         }
     </div>
