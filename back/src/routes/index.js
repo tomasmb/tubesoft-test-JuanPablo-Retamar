@@ -7,7 +7,7 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.post('/times', save) 
+router.post('/save/time', save) 
 router.get('/times', get)
 
 module.exports = router;

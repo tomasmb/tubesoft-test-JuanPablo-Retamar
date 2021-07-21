@@ -3,19 +3,22 @@ import axios from 'axios'
 
 function Crono() {
   const [seconds, setSeconds] = useState(0)
-  const [minuts, setMinuts] = useState(0)
+  const [minutes, setMinutes] = useState(0)
+  const [hours, setHours] = useState(0)
+  const [days, setDays] = useState(0)
   const [activ, setActiv] = useState(false)
 
-  const end = async(time) => {
-    const body = {sec: seconds }
-    axios.post('http://localhost:3001/save', body)
+  const end = async() => {
+    axios.post('http://localhost:3001/save/time', {sec: seconds, min: minutes, hr: hours, days: days})
     setActiv(false)
     clear()
   }
 
   const clear = () => {
     setSeconds(0);
-    setMinuts(0)
+    setMinutes(0);
+    setHours(0);
+    setDays(0)
   }
 
   const pause = () => {
@@ -30,30 +33,34 @@ function Crono() {
   return (
     useEffect(() => {
       let interval = setInterval(() => {
-        if (seconds + 1 === 60 && activ){
+        if (hours + 1 === 24 && activ){
           setSeconds(0);
-          setMinuts(minuts + 1)
-        }
-        if (activ) {setSeconds(seconds +1)}
+          setMinutes(0);
+          setHours(0);
+          setDays(days +1)
+        } else if (minutes + 1 === 60 && activ){
+          setSeconds(0);
+          setMinutes(0);
+          setHours(hours + 1)
+        } else if (seconds + 1 === 60 && activ){
+          setSeconds(0);
+          setMinutes(minutes + 1)
+        } else if (activ) {
+        setSeconds(seconds +1)}
       }, 1000)
       return () => {
         clearInterval(interval)
       }
-
-
-      // if (activ === true){
-      //   (setTimeout(() => {
-      //     setSeconds(seconds +1)  
-      //   }, 1000));
-      // }
-    }, [seconds,minuts, activ]),
+    }, [seconds,minutes, hours, days, activ]),
 
 
     <div className="App">
       <div>
         <div>
-          <p>sec: {seconds} </p>
-          <p>Min: {minuts}</p>
+          <p>Seconds: {seconds<10 ? `0${seconds}` : seconds} </p>
+          <p>Minutes: {minutes<10 ? `0${minutes}` : minutes}</p>
+          <p>Hours: {hours<10 ? `0${hours}` : hours}</p>
+          <p>Days: {days} </p>
         </div>
       </div>
       <button onClick={on}>On</button>

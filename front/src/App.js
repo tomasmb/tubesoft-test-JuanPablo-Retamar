@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import Crono from './cronometer'
 import History from './history'
 // import './App.css';

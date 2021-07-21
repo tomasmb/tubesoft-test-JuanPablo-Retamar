@@ -11,21 +11,23 @@ function History() {
         setArr(data)
     }
 
-    //listen the changes
+    return (
     useEffect(() => {
-    }, [arr])
-
+        
    
-  return (
+    }, [arr]),
+
     <div className="Hist">
         <button onClick={() => {act()}}>Upgrade History</button>
-        {
-            arr ? arr.forEach(h => {
-                <div>
-                  
-                </div>  
-            }) : ''
-        }
+    {
+        arr ? arr.forEach(h => {
+            <div>
+              <p>{arr.hours}</p>
+              <p>{arr.minuts}</p>
+              <p>{arr.seconds}</p>
+            </div>  
+        }) : ''
+    }
     </div>
   );
 }
