@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    minuts: {
+    minutes: {
       type: DataTypes.INTEGER,
     },
     hours: {

@@ -29,38 +29,34 @@ function Crono() {
     setActiv(true)
   }  
 
+  useEffect(() => {
+    let interval = setInterval(() => {
+      if (hours + 1 === 24 && activ){
+        setSeconds(0);
+        setMinutes(0);
+        setHours(0);
+        setDays(days +1)
+      } else if (minutes + 1 === 60 && activ){
+        setSeconds(0);
+        setMinutes(0);
+        setHours(hours + 1)
+      } else if (seconds + 1 === 60 && activ){
+        setSeconds(0);
+        setMinutes(minutes + 1)
+      } else if (activ) {
+      setSeconds(seconds +1)}
+    }, 1000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [seconds,minutes, hours, days, activ])
 
   return (
-    useEffect(() => {
-      let interval = setInterval(() => {
-        if (hours + 1 === 24 && activ){
-          setSeconds(0);
-          setMinutes(0);
-          setHours(0);
-          setDays(days +1)
-        } else if (minutes + 1 === 60 && activ){
-          setSeconds(0);
-          setMinutes(0);
-          setHours(hours + 1)
-        } else if (seconds + 1 === 60 && activ){
-          setSeconds(0);
-          setMinutes(minutes + 1)
-        } else if (activ) {
-        setSeconds(seconds +1)}
-      }, 1000)
-      return () => {
-        clearInterval(interval)
-      }
-    }, [seconds,minutes, hours, days, activ]),
-
 
     <div className="App">
       <div>
         <div>
-          <p>Seconds: {seconds<10 ? `0${seconds}` : seconds} </p>
-          <p>Minutes: {minutes<10 ? `0${minutes}` : minutes}</p>
-          <p>Hours: {hours<10 ? `0${hours}` : hours}</p>
-          <p>Days: {days} </p>
+          <p>{days ? `Days: ${days}` : ''} {hours<10 ? `0${hours}` : hours}: {minutes<10 ? `0${minutes}` : minutes} : {seconds<10 ? `0${seconds}` : seconds} </p>
         </div>
       </div>
       <button onClick={on}>On</button>

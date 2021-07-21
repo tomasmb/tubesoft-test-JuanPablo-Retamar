@@ -9,7 +9,7 @@ const save = async(req, res, next) => {
         const time = {
             id,
             seconds: req.body.sec,
-            minuts: req.body.min,
+            minutes: req.body.min,
             hours: req.body.hr,
             days: req.body.days,
         }

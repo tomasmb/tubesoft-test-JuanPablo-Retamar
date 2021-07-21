@@ -11,21 +11,23 @@ function History() {
         setArr(data)
     }
 
+    const deleteTime = async () => {
+        
+    }
+
     return (
     useEffect(() => {
-        
-   
     }, [arr]),
 
     <div className="Hist">
         <button onClick={() => {act()}}>Upgrade History</button>
     {
-        arr ? arr.forEach(h => {
+        arr ? arr.map(h => {
+            return (
             <div>
-              <p>{arr.hours}</p>
-              <p>{arr.minuts}</p>
-              <p>{arr.seconds}</p>
+              <p>{h.days !== 0 ? `Days:${h.days}` : ''}  {h.hours < 10 ? `0${h.hours}` : h.hours}: {h.minutes < 10 ? `0${h.minutes}` : h.minutes} : {h.seconds<10 ? `0${h.seconds}` : h.seconds}</p>
             </div>  
+            )
         }) : ''
     }
     </div>
