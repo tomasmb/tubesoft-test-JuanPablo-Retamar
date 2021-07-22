@@ -32,7 +32,9 @@ const get = async(req, res, next) => {
 const del = async(req, res, next) => {
     try{
         await Times.destroy({where: {id : req.body.id}})
-    } catch(error) {
+        const times = await Times.findAll()
+        return res.json(times)
+    } catch {
         next(error)
     }
 }
