@@ -16,7 +16,7 @@ const save = async(req, res, next) => {
         const times = await Times.create(time)
         return res.status(200).json(times)
     } catch(error){
-        return res.status(500).json({message: 'internal error DB'})
+        next(error)
     }
 }
 
@@ -24,8 +24,8 @@ const get = async(req, res, next) => {
     try{
         const times = await Times.findAll()
         return res.status(200).json(times)
-    } catch(erro){
-        return res.status(400)
+    } catch(error){
+        next(error)
     }
 }
 
