@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+// import 'history.css'
 
 function History() {
     //set history state
@@ -7,31 +8,41 @@ function History() {
 
     //get the history of the database
     const act = async() => {
-        const {data} = await axios.get('http://localhost:3001/times')
-        setArr(data)
+        try {
+            const {data} = await axios.get('http://localhost:3001/times')
+            setArr(data)
+        } catch (error){
+            alert(error)
+        }
     }
 
-    const deleteTime = async () => {
-        
+    const deleteTime = async (id) => {
+        try{
+            const {data} = await axios.post('http://localhost:3001/del/time', {id})
+            setArr(data)
+        } catch(error){
+            alert(error)
+        }
     }
+    useEffect(() => {
+    }, [arr])
 
     return (
-    useEffect(() => {
-    }, [arr]),
 
-    <div className="Hist">
-        <button onClick={() => {act()}}>Upgrade History</button>
-    {
-        arr ? arr.map(h => {
-            return (
-            <div>
-              <p>{h.days !== 0 ? `Days:${h.days}` : ''}  {h.hours < 10 ? `0${h.hours}` : h.hours}: {h.minutes < 10 ? `0${h.minutes}` : h.minutes} : {h.seconds<10 ? `0${h.seconds}` : h.seconds}</p>
-            </div>  
-            )
-        }) : ''
-    }
-    </div>
-  );
+        <div className="Hist">
+            <button onClick={act}>Upgrade History</button>
+        {
+            arr ? arr.map(h => {
+                return (
+                    <div className='list'>
+                        <p>{h.days !== 0 ? `Days:${h.days}` : ''}  {h.hours < 10 ? `0${h.hours}` : h.hours}: {h.minutes < 10 ? `0${h.minutes}` : h.minutes} : {h.seconds<10 ? `0${h.seconds}` : h.seconds}</p>
+                        <button onClick={() => {deleteTime(h.id)}}>X</button>
+                    </div>  
+                )
+            }) : ''
+        }
+        </div>
+    );
 }
 
 export default History;

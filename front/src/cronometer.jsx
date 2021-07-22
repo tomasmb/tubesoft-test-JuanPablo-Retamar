@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import './cronometer.css'
 
 function Crono() {
   const [seconds, setSeconds] = useState(0)
@@ -8,7 +9,7 @@ function Crono() {
   const [days, setDays] = useState(0)
   const [activ, setActiv] = useState(false)
 
-  const end = async() => {
+  const end = () => {
     axios.post('http://localhost:3001/save/time', {sec: seconds, min: minutes, hr: hours, days: days})
     setActiv(false)
     clear()
@@ -53,15 +54,15 @@ function Crono() {
 
   return (
 
-    <div className="App">
-      <div>
+    <div className="crono">
+      <div className='time'>
         <div>
           <p>{days ? `Days: ${days}` : ''} {hours<10 ? `0${hours}` : hours}: {minutes<10 ? `0${minutes}` : minutes} : {seconds<10 ? `0${seconds}` : seconds} </p>
         </div>
       </div>
-      <button onClick={on}>On</button>
-      <button onClick={pause}>Pause</button>
-      <button onClick={end}>Off</button>
+      <button className='button' onClick={on}>On</button>
+      <button className='button' onClick={pause}>Pause</button>
+      <button className='button' onClick={end}>Off</button>
     </div>
   );
 }
