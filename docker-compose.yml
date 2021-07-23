@@ -1,0 +1,36 @@
+version: '3'
+services:
+    postgres:
+        image: postgres:12.1
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD:`${DB_PASSWORD}`
+            - POSTGRES_USER:`${DB_USER}`
+        volumes:
+            - ./postgresql/data:/var/lib/postgresql/data
+    back:
+        build:
+            context: ./back
+            dockerfile: Dockerfile
+        depends_on:
+            - postgres
+        environment:
+            - DB_NAME:`${DB_NAME}`
+            - DB_HOST:postgres
+            - DB_USER:`${DB_USER}`
+            - DB_PASSWORD:`${DB_PASSWORD}`
+        volumes:
+            - /back/node_modules
+            - ./back:/back
+        ports:
+            - "3001:3001"
+    front:
+        build:
+            context: ./front
+            dockerfile: Dockerfile
+        volumes:
+            - /front/node_modules
+            - ./front:/front
+        ports:
+            - "3000:3000"
