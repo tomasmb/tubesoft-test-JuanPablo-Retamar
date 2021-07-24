@@ -57,7 +57,7 @@ function Crono() {
     <div className="crono">
       <div className='time'>
         <div>
-          <p>{days ? `Days: ${days}` : ''} {hours<10 ? `0${hours}` : hours}: {minutes<10 ? `0${minutes}` : minutes} : {seconds<10 ? `0${seconds}` : seconds} </p>
+          <p className='timer'>{days ? `Days: ${days}` : ''} {hours<10 ? `0${hours}` : hours}: {minutes<10 ? `0${minutes}` : minutes} : {seconds<10 ? `0${seconds}` : seconds} </p>
         </div>
       </div>
       <button className='button' onClick={on}>On</button>
